@@ -1,24 +1,24 @@
 {
-	"expType": "binary", 
+	"exprType": "binary", 
 	"value": "+", 
 	"left":
 	{ 
-		"expType": "binary", 
+		"exprType": "binary", 
 		"value": "*", 
 		"left":
 		{ 
-			"expType": "value", 
-			"value": "3" 
+			"exprType": "value", 
+			"value": 3
 		}, 
 		"right":
 		{ 
-			"expType": "symbol",
+			"exprType": "symbol",
 			"value": "x" 
 		} 
 	}, 
 	"right":
 	{ 
-		"expType": "value", 
-		"value": "2" 
+		"exprType": "value", 
+		"value": 2
 	}
 }
