@@ -2,7 +2,7 @@
 	"exprType": "binary", 
 	"value": "+", 
 	"left":
-	{ 
+	{
 		"exprType": "binary", 
 		"value": "*", 
 		"left":
@@ -12,8 +12,18 @@
 		}, 
 		"right":
 		{ 
-			"exprType": "symbol",
-			"value": "x" 
+			"exprType": "binary",
+			"value": "* ",
+			"left":
+			{
+				"exprType": "symbol",
+				"value": "x"
+			},
+			"right":
+			{
+				"exprType": "symbol",
+				"value": "y"
+			}
 		} 
 	}, 
 	"right":

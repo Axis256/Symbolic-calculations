@@ -3,7 +3,8 @@ from input_json import make_data
 
 data = make_data("data_file.json")
 expr = Expression(data)
-#print(expr.args[0].args[1].value, expr.args[0].value)
+# print(expr.args[0].args[1].value, expr.args[0].value)
+
 
 def is_eq(expr1: Expression, expr2: Expression):
 
@@ -29,9 +30,9 @@ def is_eq(expr1: Expression, expr2: Expression):
         return False
 
 
-#expr1 = Expression(data)
-#expr2 = Expression(data)
-#print(expr1.args[0].value == expr2.args[0].value)
-
-#print(is_eq(Expression(data['left']), Expression(data['left'])))
+# expr1 = Expression(data)
+# expr2 = Expression(data)
+# print(expr1.args[0].value == expr2.args[0].value)
+#
+# print(is_eq(Expression(data['left']), Expression(data['left'])))
 print(expr.make_str())

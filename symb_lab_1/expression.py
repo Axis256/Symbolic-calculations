@@ -27,5 +27,4 @@ class Expression:
                 math_str += expr.make_str()
         else:
             math_str += str(self.value)
-            print(self.value)
         return math_str
