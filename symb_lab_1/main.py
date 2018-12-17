@@ -35,4 +35,3 @@ def is_eq(expr1: Expression, expr2: Expression):
 # print(expr1.args[0].value == expr2.args[0].value)
 #
 # print(is_eq(Expression(data['left']), Expression(data['left'])))
-print(expr.make_str())
