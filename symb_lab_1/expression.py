@@ -17,3 +17,15 @@ class Expression:
             self.__get_args(data["right"], operator)
         else:
             self.args.append(Expression(data["right"]))
+
+    def make_str(self):
+        math_str = ''
+        if self.type == "binary":
+            for expr in self.args:
+                if self.value != '*' and len(math_str) != 0:
+                    math_str += (' ' + str(self.value) + ' ')
+                math_str += expr.make_str()
+        else:
+            math_str += str(self.value)
+            print(self.value)
+        return math_str
