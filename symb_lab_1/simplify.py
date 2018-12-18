@@ -15,6 +15,9 @@ def simplify_add(expr: Expression):
 def simplify_mul(expr: Expression):
     temp_list = [1]
     for i in range(len(expr.args)):
+        if expr.args[i].value == '^' and expr.args[i].args[0].type == 'value':
+            expr.args[i].args = [expr.args[i].args[0].value ** expr.args[i].args[1].value]
+            reduce(expr.args[i])
         if expr.args[i].type == 'value':
             temp_list[0] += expr.args[i]
         elif expr.args[i].type == 'symbol':
@@ -41,9 +44,12 @@ def simplify_mul(expr: Expression):
 
 def reduce(expr: Expression):
     if len(expr.args) == 1:
-        expr.value = expr.args[0].value
-        expr.type = expr.args[0].type
-        expr.args = []
-        return 0
+        if isinstance(expr.args[0], Expression):
+            expr.value = expr.args[0].value
+            expr.type = expr.args[0].type
+            expr.args = expr.args[0].args
+            return 0
+        else:
+            expr = expr.args[0]
     else:
         return -1

@@ -1,5 +1,6 @@
 from expression import *
 from input_json import make_data
+from monominal import *
 
 data = make_data("data_file.json")
 expr = Expression(data)
@@ -30,8 +31,9 @@ def is_eq(expr1: Expression, expr2: Expression):
         return False
 
 
-# expr1 = Expression(data)
+expr1 = Expression(data)
 # expr2 = Expression(data)
 # print(expr1.args[0].value == expr2.args[0].value)
 #
 # print(is_eq(Expression(data['left']), Expression(data['left'])))
+print(expr1.make_str())
