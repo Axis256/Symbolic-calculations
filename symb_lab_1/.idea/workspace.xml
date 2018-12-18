@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36bafe63-b3d2-40f6-8a19-4a4acc428276" name="Default" comment="">
+    <list default="true" id="36bafe63-b3d2-40f6-8a19-4a4acc428276" name="Default" comment="капитальный ремонт">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -193,7 +193,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1542571594879</updated>
-      <workItem from="1545127948815" duration="9511000" />
+      <workItem from="1545127948815" duration="9603000" />
     </task>
     <task id="LOCAL-00001" summary="make_str added">
       <created>1545064861808</created>
@@ -223,15 +223,21 @@
       <option name="project" value="LOCAL" />
       <updated>1545122156910</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="капитальный ремонт">
+      <created>1545147045344</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1545147045344</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9511000" />
+    <option name="totallyTimeSpent" value="9603000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13646056" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -240,7 +246,7 @@
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32827735" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32827735" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -264,7 +270,8 @@
     <MESSAGE value="make_str added" />
     <MESSAGE value="simplify rework" />
     <MESSAGE value="monominals started" />
-    <option name="LAST_COMMIT_MESSAGE" value="monominals started" />
+    <MESSAGE value="капитальный ремонт" />
+    <option name="LAST_COMMIT_MESSAGE" value="капитальный ремонт" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/monominal.py">

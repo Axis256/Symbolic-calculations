@@ -2,54 +2,44 @@ from expression import Expression
 
 
 def simplify_add(expr: Expression):
-    temp_list = [0]
+    temp_list = []
     for i in range(len(expr.args)):
-        if expr.args[i].type == 'value':
-            temp_list[0] += expr.args[i]
-        else:
+        if isinstance(expr.args[i], Expression) and expr.args[i].is_monomial:
             temp_list.append(expr.args[i])
+            for j in range(i + 1, len(expr.args)):
+                if expr.args[j].variables == temp_list[-1].variables:
+                    temp_list[-1].value += expr.args[j].value
+                    expr.args[j] = False
     expr.args = temp_list
     reduce(expr)
 
 
 def simplify_mul(expr: Expression):
-    temp_list = [1]
-    for i in range(len(expr.args)):
-        if expr.args[i].value == '^' and expr.args[i].args[0].type == 'value':
-            expr.args[i].args = [expr.args[i].args[0].value ** expr.args[i].args[1].value]
-            reduce(expr.args[i])
-        if expr.args[i].type == 'value':
-            temp_list[0] += expr.args[i]
-        elif expr.args[i].type == 'symbol':
-            temp_list.append(expr.args[i])
-    for i in range(len(expr.args)):
-        if expr.args[i].type == 'binary':
-            temp_list.append(expr.args[i])
-    expr.args = temp_list
-    # dump_index = -1
-    # for i in range(len(expr.args)):
-    #     if expr.args[i].value == '^' and expr.args[i].args[0].type == 'value':
-    #         expr.args[i].args = [expr.args[i].args[0].value ** expr.args[i].args[1].value]
-    #         reduce(expr.args[i])
-    #     if expr.args[i].type == 'value':
-    #         dump_index = i
-    #         break
-    # if dump_index == -1:
-    #     return -1
-    # for i in range(dump_index, len(expr.args)):
-    #     if expr.args[i].type == 'value' and i != dump_index:
-    #         expr.args[dump_index] += expr.args[i]
-    reduce(expr)
+    var_exists = False
+    expr.value = 1
+    for arg in expr.args:
+        if isinstance(arg, Expression) and arg.is_monomial:
+            expr.value *= arg.value
+            if len(arg.variables) != 0:
+                for var_out in arg.variables:
+                    for var_in in expr.variables:
+                        if len(var_in) != 0 and var_out[0] == var_in[0]:
+                            var_in[1] += var_out[1]
+                            var_exists = True
+                            break
+                    if not var_exists:
+                        expr.variables.append(var_out)
+    expr.is_monomial = True
+    expr.args = []
 
 
 def reduce(expr: Expression):
     if len(expr.args) == 1:
-        if isinstance(expr.args[0], Expression):
-            expr.value = expr.args[0].value
-            expr.type = expr.args[0].type
-            expr.args = expr.args[0].args
-            return 0
-        else:
-            expr = expr.args[0]
+        expr.value = expr.args[0].value
+        expr.type = expr.args[0].type
+        expr.variables = expr.args[0].variables
+        expr.is_monomial = expr.args[0].is_monomial
+        expr.args = expr.args[0].args
+        return 0
     else:
         return -1

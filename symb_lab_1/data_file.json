@@ -1,6 +1,6 @@
 {
 	"exprType": "binary", 
-	"value": "+", 
+	"value": "*",
 	"left":
 	{
 		"exprType": "binary", 
