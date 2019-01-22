@@ -1,5 +1,6 @@
 from f_parser import parse
 from context import Context
+from simplify import simplify
 
 
 class Expression:
@@ -8,17 +9,17 @@ class Expression:
         self.is_monomial = False
         self.variables = []
         self.type, self.value, arg1, arg2 = parse(data)
-        if self.type == 'func':
+        if self.type == 'symp':
+            expr = Expression(self.value, ctx)
+            simplify(expr)
+            self.__clone(expr)
+        elif self.type == 'func':
             for arg in (arg1, arg2):
                 self.__get_args(arg, self.value, ctx)
         elif self.type == 'symbol':
             expr = ctx.get_func_from_list(self.value)
             if expr != -1:
-                self.args = expr.args
-                self.value = expr.value
-                self.type = expr.type
-                self.is_monomial = expr.is_monomial
-                self.variables = expr.variables
+                self.__clone(expr)
             else:
                 self.variables.append([self.value, 1])
                 self.value = 1
@@ -54,6 +55,13 @@ class Expression:
             return 0
         else:
             return -1
+
+    def __clone(self, expr):
+        self.args = expr.args
+        self.value = expr.value
+        self.type = expr.type
+        self.is_monomial = expr.is_monomial
+        self.variables = expr.variables
 
     def __str__(self):
         math_str = ''

@@ -1,5 +1,5 @@
 # from input_json import make_data
-from simplify import *
+from expression import *
 from out_fancy import success_message
 
 # data = make_data("data_file.json")
@@ -7,21 +7,21 @@ from out_fancy import success_message
 # print(expr.args[0].args[1].value, expr.args[0].value)
 
 ctx = Context()
-# expr_in = 0
-# while expr_in != '0':
-#     expr_in = input()
-#     eq_pos = expr_in.find('=')
-#     if eq_pos == -1:
-#         print(Expression(expr_in, ctx))
-#         # success_message()
-#     else:
-#         ctx.add_func(expr_in[0:eq_pos - 1], Expression(expr_in[eq_pos + 2:], ctx))
+expr_in = 0
+while expr_in != '0':
+    expr_in = input()
+    eq_pos = expr_in.find('=')
+    if eq_pos == -1:
+        print(Expression(expr_in, ctx))
+        # success_message()
+    else:
+        ctx.add_func(expr_in[0:eq_pos - 1], Expression(expr_in[eq_pos + 2:], ctx))
 
 # success_message()
-expr = Expression('add(mul(mul(2, 3), mul(mul(1, 6), 9)), pow(y, 2))', ctx)
-print(expr)
-simplify(expr)
-print(expr)
+# expr = Expression('add(mul(mul(2, 3), mul(mul(1, 6), 9)), pow(y, 2))', ctx)
+# print(expr)
+# simplify(expr)
+# print(expr)
 #
 # simplify_mul(expr.args[0])
 # print(expr)

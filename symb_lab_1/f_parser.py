@@ -54,6 +54,8 @@ def parse(input_expr: str):
             arg1 = args[0:comma_pos]
             arg2 = args[comma_pos + 2:]
             return 'func', __func_dict[input_expr[0:pos_par]], arg1, arg2
+        elif input_expr[0:pos_par] == 'simplify':
+            return 'symp', args, None, None
         else:
             return -1
     elif input_expr.isnumeric():

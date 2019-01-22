@@ -1,20 +1,18 @@
-from expression import *
-
-
-def simplify_add(expr: Expression):
+def simplify_add(expr):
     temp_list = []
     for i in range(len(expr.args)):
-        temp_list.append(expr.args[i])
-        if expr.args[i] != -1 and expr.args[i].is_monomial:
-            for j in range(i + 1, len(expr.args)):
-                if (expr.args[j].variables == temp_list[-1].variables) and expr.args[j].is_monomial:
-                    temp_list[-1].value += expr.args[j].value
-                    expr.args[j] = -1
+        if expr.args[i] != -1:
+            temp_list.append(expr.args[i])
+            if expr.args[i].is_monomial:
+                for j in range(i + 1, len(expr.args)):
+                    if (expr.args[j].variables == temp_list[-1].variables) and expr.args[j].is_monomial:
+                        temp_list[-1].value += expr.args[j].value
+                        expr.args[j] = -1
     expr.args = temp_list
     reduce(expr)
 
 
-def simplify_mul(expr: Expression):
+def simplify_mul(expr):
     var_exists = False
     expr.value = 1
     for arg in expr.args:
@@ -31,9 +29,29 @@ def simplify_mul(expr: Expression):
                         expr.variables.append(var_out)
     expr.is_monomial = True
     expr.args = []
+    if len(expr.variables) > 0:
+        expr.type = 'symbol'
+    else:
+        expr.type = 'value'
 
 
-def reduce(expr: Expression):
+def simplify_pow(expr):
+    if expr.args[0].type == 'value':
+        expr.value = expr.args[0].value ** expr.args[1].value
+        expr.type = 'value'
+        expr.args = []
+        expr.is_monomial = True
+    if expr.args[0].type == 'symbol':
+        for var in expr.args[0].variables:
+            var[1] *= expr.args[1].value
+        expr.value = expr.args[0].value ** expr.args[1].value
+        expr.variables = expr.args[0].variables
+        expr.type = 'symbol'
+        expr.is_monomial = True
+        expr.args = []
+
+
+def reduce(expr):
     if len(expr.args) == 1:
         expr.value = expr.args[0].value
         expr.type = expr.args[0].type
@@ -45,7 +63,7 @@ def reduce(expr: Expression):
         return -1
 
 
-def simplify(expr: Expression):
+def simplify(expr):
     for arg in expr.args:
         if arg.type == 'func':
             simplify(arg)
@@ -53,3 +71,5 @@ def simplify(expr: Expression):
         simplify_add(expr)
     elif expr.value == '*':
         simplify_mul(expr)
+    elif expr.value == '^':
+        simplify_pow(expr)
