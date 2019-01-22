@@ -1,37 +1,30 @@
 # from input_json import make_data
-# from simplify import *
-from expression import *
+from simplify import *
+from out_fancy import success_message
 
 # data = make_data("data_file.json")
 # expr = Expression(data)
 # print(expr.args[0].args[1].value, expr.args[0].value)
 
-
-# def is_eq(expr1: Expression, expr2: Expression):
-#
-#     match_count = 0
-#
-#     if len(expr1.args) != len(expr2.args):
-#         return False
-#
-#     for item1 in expr1.args:
-#         if item1.type == 'value':
-#             continue
-#         for item2 in expr2.args:
-#             if (item1.type == item2.type == 'symbol') and (item1.value == item2.value) or \
-#                                     (item1.type == item2.type == 'binary') and \
-#                                     (item1.value == item2.value == 'pow') and (item1.args == item2.args):
-#                 match_count += 1
-#                 break
-#     print(match_count)
-#     print(len(expr1.args))
-#     if match_count + 1 == len(expr1.args):
-#         return True
+ctx = Context()
+# expr_in = 0
+# while expr_in != '0':
+#     expr_in = input()
+#     eq_pos = expr_in.find('=')
+#     if eq_pos == -1:
+#         print(Expression(expr_in, ctx))
+#         # success_message()
 #     else:
-#         return False
+#         ctx.add_func(expr_in[0:eq_pos - 1], Expression(expr_in[eq_pos + 2:], ctx))
 
-expr = Expression('add(1, 2)')
+# success_message()
+expr = Expression('add(mul(mul(2, 3), mul(mul(1, 6), 9)), pow(y, 2))', ctx)
 print(expr)
+simplify(expr)
+print(expr)
+#
+# simplify_mul(expr.args[0])
+# print(expr)
 
 # expr1 = Expression(data)
 # for arg in expr1.args:

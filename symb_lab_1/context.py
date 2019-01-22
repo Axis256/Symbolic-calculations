@@ -1,10 +1,13 @@
-from expression import Expression
-
-
 class Context:
     def __init__(self):
+        self.__user_functions = []
+        self.func_list = []
 
-        self._user_functions = []
+    def add_func(self, symb, expr):
+        self.__user_functions.append((symb, expr))
 
-    def add_func(self, symb: str, expr: Expression):
-        self._user_functions.append((symb, expr))
+    def get_func_from_list(self, symb):
+        for var in self.__user_functions:
+            if symb == var[0]:
+                return var[1]
+        return -1

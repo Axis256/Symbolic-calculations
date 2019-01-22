@@ -1,15 +1,15 @@
-from expression_old import Expression
+from expression import *
 
 
 def simplify_add(expr: Expression):
     temp_list = []
     for i in range(len(expr.args)):
-        if isinstance(expr.args[i], Expression) and expr.args[i].is_monomial:
-            temp_list.append(expr.args[i])
+        temp_list.append(expr.args[i])
+        if expr.args[i] != -1 and expr.args[i].is_monomial:
             for j in range(i + 1, len(expr.args)):
-                if expr.args[j].variables == temp_list[-1].variables:
+                if (expr.args[j].variables == temp_list[-1].variables) and expr.args[j].is_monomial:
                     temp_list[-1].value += expr.args[j].value
-                    expr.args[j] = False
+                    expr.args[j] = -1
     expr.args = temp_list
     reduce(expr)
 
@@ -18,7 +18,7 @@ def simplify_mul(expr: Expression):
     var_exists = False
     expr.value = 1
     for arg in expr.args:
-        if isinstance(arg, Expression) and arg.is_monomial:
+        if arg.is_monomial:
             expr.value *= arg.value
             if len(arg.variables) != 0:
                 for var_out in arg.variables:
@@ -43,3 +43,13 @@ def reduce(expr: Expression):
         return 0
     else:
         return -1
+
+
+def simplify(expr: Expression):
+    for arg in expr.args:
+        if arg.type == 'func':
+            simplify(arg)
+    if expr.value == '+':
+        simplify_add(expr)
+    elif expr.value == '*':
+        simplify_mul(expr)
