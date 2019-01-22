@@ -1,8 +1,9 @@
-from input_json import make_data
-from simplify import *
+# from input_json import make_data
+# from simplify import *
+from expression import *
 
-data = make_data("data_file.json")
-expr = Expression(data)
+# data = make_data("data_file.json")
+# expr = Expression(data)
 # print(expr.args[0].args[1].value, expr.args[0].value)
 
 
@@ -29,15 +30,20 @@ expr = Expression(data)
 #     else:
 #         return False
 
+expr = Expression('add(1, 2)')
+print(expr)
 
-expr1 = Expression(data)
+# expr1 = Expression(data)
 # for arg in expr1.args:
 #     print(arg.make_monomial())
 # print(expr1.args[0].is_monomial)
 
-simplify_mul(expr1)
-print(expr1.value)
-print(expr1.variables)
+# simplify_mul(expr1)
+# print(expr1.value)
+# print(expr1.variables)
+# print(expr1)
+# ctx = Context()
+# print(ctx.parse('smth(wtf niggas)'))
 
 
 # expr2 = Expression(data['right'])
