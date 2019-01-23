@@ -5,7 +5,7 @@ def simplify_add(expr):
             temp_list.append(expr.args[i])
             if expr.args[i].is_monomial:
                 for j in range(i + 1, len(expr.args)):
-                    if (expr.args[j].variables == temp_list[-1].variables) and expr.args[j].is_monomial:
+                    if expr.args[j] != -1 and (expr.args[j].variables == temp_list[-1].variables) and expr.args[j].is_monomial:
                         temp_list[-1].value += expr.args[j].value
                         expr.args[j] = -1
     expr.args = temp_list
@@ -27,6 +27,10 @@ def simplify_mul(expr):
                             break
                     if not var_exists:
                         expr.variables.append(var_out)
+    temp_list = []
+    # for arg in expr.args:
+    #     if arg.value == '+':
+    #         for
     expr.is_monomial = True
     expr.args = []
     if len(expr.variables) > 0:

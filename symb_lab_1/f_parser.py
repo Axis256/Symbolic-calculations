@@ -2,18 +2,14 @@ def parse(input_expr: str):
 
     __viable_functions = [
         'add',
-        'sub',
         'mul',
-        'div',
         'pow',
         'simplify'
     ]
 
     __func_dict = {
         'add': '+',
-        'sub': '-',
         'mul': '*',
-        'div': '/',
         'pow': '^'
     }
 
@@ -41,7 +37,7 @@ def parse(input_expr: str):
             pos = text.find(',')
         first_arg = text[0:pos]
         second_arg = text[pos + 2:]
-        if pos != -1 and (is_func(first_arg) or first_arg.isalnum()) and (is_func(second_arg) or second_arg.isalnum()):
+        if pos != -1:
             return pos
         else:
             return -1
@@ -56,9 +52,11 @@ def parse(input_expr: str):
             return 'func', __func_dict[input_expr[0:pos_par]], arg1, arg2
         elif input_expr[0:pos_par] == 'simplify':
             return 'symp', args, None, None
+        elif input_expr[0:pos_par] == 'plot':
+            return 'plot', args, None, None
         else:
             return -1
-    elif input_expr.isnumeric():
+    elif input_expr.isnumeric() or (input_expr[1:].isnumeric() and input_expr[0] == '-'):
         return 'value', int(input_expr), None, None
     elif input_expr.isalnum():
         return 'symbol', input_expr, None, None

@@ -1,6 +1,7 @@
 from f_parser import parse
 from context import Context
 from simplify import simplify
+import numpy as np
 
 
 class Expression:
@@ -19,6 +20,7 @@ class Expression:
         elif self.type == 'symbol':
             expr = ctx.get_func_from_list(self.value)
             if expr != -1:
+                expr = Expression(expr, ctx)
                 self.__clone(expr)
             else:
                 self.variables.append([self.value, 1])
@@ -29,6 +31,9 @@ class Expression:
 
     def __get_args(self, data, op, ctx):
         _, arg_value, arg1, arg2 = parse(data)
+        func = ctx.get_func_from_list(arg_value)
+        if func != -1:
+            _, arg_value, arg1, arg2 = parse(func)
         if arg_value == op:
             for arg in (arg1, arg2):
                 self.__get_args(arg, arg_value, ctx)
@@ -56,12 +61,42 @@ class Expression:
         else:
             return -1
 
+    def substitute(self, arg1, arg2, var1, var2):
+        if self.value == '+':
+            result = 0
+            for arg in self.args:
+                result += arg.substitute(arg1, arg2, var1, var2)
+            return result
+        else:
+            result = self.value
+            for var in self.variables:
+                if var[0] == var1:
+                    result *= (arg1 ** var[1])
+                if var[0] == var2:
+                    result *= (arg2 ** var[1])
+            return result
+
     def __clone(self, expr):
         self.args = expr.args
         self.value = expr.value
         self.type = expr.type
         self.is_monomial = expr.is_monomial
         self.variables = expr.variables
+
+    def mul_expr(self, other):
+        var_exists = False
+        self.value *= other.value
+        if len(other.variables) != 0:
+            print(other.variables)
+            print(self.variables)
+            for var_out in other.variables:
+                for var_in in self.variables:
+                    if len(var_in) != 0 and var_out[0] == var_in[0]:
+                        var_in[1] += var_out[1]
+                        var_exists = True
+                        break
+                if not var_exists:
+                    other.variables.append(var_out)
 
     def __str__(self):
         math_str = ''
