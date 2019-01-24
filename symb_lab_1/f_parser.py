@@ -45,16 +45,18 @@ def parse(input_expr: str):
     if is_func(input_expr):
         pos_par = input_expr.find('(')
         args = input_expr[pos_par + 1:-1]
+        if input_expr[0:pos_par] == 'simplify':
+            return 'symp', args, None, None
         comma_pos = find_comma(args)
         if comma_pos != -1:
-            arg1 = args[0:comma_pos]
-            arg2 = args[comma_pos + 2:]
-            return 'func', __func_dict[input_expr[0:pos_par]], arg1, arg2
-        elif input_expr[0:pos_par] == 'simplify':
-            return 'symp', args, None, None
-        elif input_expr[0:pos_par] == 'plot':
-            return 'plot', args, None, None
+            if input_expr[0:pos_par] == 'plot':
+                return 'plot', args, None, None
+            else:
+                arg1 = args[0:comma_pos]
+                arg2 = args[comma_pos + 2:]
+                return 'func', __func_dict[input_expr[0:pos_par]], arg1, arg2
         else:
+            print(input_expr)
             return -1
     elif input_expr.isnumeric() or (input_expr[1:].isnumeric() and input_expr[0] == '-'):
         return 'value', int(input_expr), None, None
