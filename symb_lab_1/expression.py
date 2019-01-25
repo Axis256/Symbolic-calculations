@@ -2,6 +2,8 @@ from f_parser import parse
 from context import Context
 from simplify import simplify
 from copy import deepcopy
+from error_out import input_error_message
+from my_plot import plot
 
 
 class Expression:
@@ -9,11 +11,20 @@ class Expression:
         self.args = []
         self.is_monomial = False
         self.variables = []
-        self.type, self.value, arg1, arg2 = parse(data)
+        try:
+            self.type, self.value, arg1, arg2 = parse(data)
+        except(TypeError):
+            input_error_message(data)
+            self.type = 'error'
+            return
         if self.type == 'symp':
             expr = Expression(self.value, ctx)
             simplify(expr)
             self.__clone(expr)
+        elif self.type[0:4] == 'plot':
+            expr = Expression(self.value, ctx)
+            simplify(expr)
+            plot(expr, arg1, arg2, self.type[4], self.type[5])
         elif self.type == 'func':
             for arg in (arg1, arg2):
                 self.__get_args(arg, self.value, ctx)
@@ -79,6 +90,8 @@ class Expression:
         return result
 
     def __str__(self):
+        if self.type == 'error':
+            return 'error'
         math_str = ''
         if self.is_monomial:
             if not (self.value == 1 and len(self.variables) != 0):

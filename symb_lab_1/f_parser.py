@@ -39,9 +39,7 @@ def parse(input_expr: str):
         if pos != -1:
             return pos
         else:
-            print('comma')
             return -1
-
 
 
     if is_func(input_expr):
@@ -52,7 +50,16 @@ def parse(input_expr: str):
         comma_pos = find_comma(args)
         if comma_pos != -1:
             if input_expr[0:pos_par] == 'plot':
-                return 'plot', args, None, None
+                pos_comma1 = comma_pos
+                pos_comma2 = args.find(',', pos_comma1 + 1)
+                pos_comma3 = args.find(',', pos_comma2 + 1)
+                pos_comma4 = args.find(',', pos_comma3 + 1)
+                expr_str = args[:pos_comma1]
+                x = args[pos_comma1 + 2:pos_comma2]
+                y = args[pos_comma2 + 2:pos_comma3]
+                var1 = args[pos_comma3 + 2:pos_comma4]
+                var2 = args[pos_comma4 + 2:]
+                return 'plot' + var1 + var2, expr_str, x, y
             else:
                 arg1 = args[0:comma_pos]
                 arg2 = args[comma_pos + 2:]
