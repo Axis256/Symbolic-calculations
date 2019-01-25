@@ -56,7 +56,7 @@ while expr_in != '0':
 # print(expr, X, Y, 'x', 'y')
 # plot(expr, X, Y, 'x', 'y')
 
-#print(expr.substitute(X, Y, 'x', 'y'))
+# print(expr.substitute(X, Y, 'x', 'y'))
 
 # success_message()
 # expr = Expression('add(mul(mul(2, 3), mul(mul(1, 6), 9)), pow(y, 2))', ctx)

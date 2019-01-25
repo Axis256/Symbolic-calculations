@@ -4,7 +4,8 @@ def parse(input_expr: str):
         'add',
         'mul',
         'pow',
-        'simplify'
+        'simplify',
+        'plot'
     ]
 
     __func_dict = {
@@ -35,12 +36,13 @@ def parse(input_expr: str):
             pos = i + 1
         else:
             pos = text.find(',')
-        first_arg = text[0:pos]
-        second_arg = text[pos + 2:]
         if pos != -1:
             return pos
         else:
+            print('comma')
             return -1
+
+
 
     if is_func(input_expr):
         pos_par = input_expr.find('(')
@@ -56,7 +58,6 @@ def parse(input_expr: str):
                 arg2 = args[comma_pos + 2:]
                 return 'func', __func_dict[input_expr[0:pos_par]], arg1, arg2
         else:
-            print(input_expr)
             return -1
     elif input_expr.isnumeric() or (input_expr[1:].isnumeric() and input_expr[0] == '-'):
         return 'value', int(input_expr), None, None

@@ -56,11 +56,11 @@ class Expression:
             return result
 
     def __clone(self, expr):
-        self.args = expr.args
+        self.args = deepcopy(expr.args)
         self.value = expr.value
         self.type = expr.type
         self.is_monomial = expr.is_monomial
-        self.variables = expr.variables
+        self.variables = deepcopy(expr.variables)
 
     def __mul__(self, other):
         var_exists = False
@@ -90,7 +90,10 @@ class Expression:
         elif self.type == "func":
             for expr in self.args:
                 if len(math_str) != 0:
-                    math_str += (' ' + str(self.value) + ' ')
+                    if self.value == '+' and isinstance(expr.value, int) and expr.value < 0:
+                        pass
+                    else:
+                        math_str += (str(self.value))
                 math_str += expr.__str__()
         else:
             math_str += str(self.value)
